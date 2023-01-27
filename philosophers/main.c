@@ -9,7 +9,7 @@ void	print_philo(t_philo *philo)
 	printf("5: argc = %d\n", philo->must_eat);
 }
 
-t_philo	*create_philos(int n_philos, char ** arguments)
+t_philo	*create_philos(int n_philos, char **arguments, pthread_mutex_t *mutex)
 {
 	t_philo	*philos;
 	int		i;
@@ -18,7 +18,7 @@ t_philo	*create_philos(int n_philos, char ** arguments)
 	philos = malloc(sizeof(t_philo) * n_philos);
 	while (i < n_philos)
 	{
-		get_input(&philos[i], arguments, i);
+		get_input(&philos[i], mutex, arguments, i);
 		i++;
 	}
 	return (philos);
@@ -29,7 +29,7 @@ void	run_threads(pthread_t *threads, t_philo *philos, int n_philos)
 	int i;
 
 	i = 0;
-	// pthread_mutex_init(&philos->mutex, NULL);
+	pthread_mutex_init(philos->mutex, NULL);
 	while (i < n_philos)
 	{
 		pthread_create(&threads[i], NULL, &rotine, &philos[i]);
@@ -41,17 +41,18 @@ void	run_threads(pthread_t *threads, t_philo *philos, int n_philos)
 		pthread_join(threads[i], NULL);
 		i++;
 	}
-	// pthread_mutex_destroy(&philos->mutex);
+	pthread_mutex_destroy(philos->mutex);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_philo		*philos;
-	pthread_t	*threads;
+	t_philo			*philos;
+	pthread_t		*threads;
+	pthread_mutex_t	mutex;
 
 	if (check_input(argc, argv))
 		return (1);
-	philos = create_philos(ft_atoi(argv[1]), argv);
+	philos = create_philos(ft_atoi(argv[1]), argv, &mutex);
 	if (!philos)
 		return (1);
 	threads = malloc(sizeof(pthread_t) * philos[0].number_of_philos);

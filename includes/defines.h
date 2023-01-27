@@ -23,8 +23,7 @@ typedef struct s_philo
 	int				must_eat;
 	int				id;
 	size_t			start;
-	pthread_mutex_t	mutex;
-
+	pthread_mutex_t	*mutex;
 }	t_philo;
 
 
