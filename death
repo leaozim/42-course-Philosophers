@@ -1,0 +1,26 @@
+0     1 fork 
+0     1 fork 
+0     1 is eating
+200   1 is sleeping
+200   2 fork 
+200   2 fork 
+200   2 is eating
+401   1 is thinking
+401   2 is sleeping
+401   1 fork 
+401   1 fork 
+401   1 is eating
+601   2 is thinking
+601   2 fork 
+601   2 fork 
+601   2 is eating
+601   1 is sleeping
+801   1 is thinking
+801   1 fork 
+801   1 fork 
+801   1 is eating
+801   2 is sleeping
+1002  2 is thinking
+1002  2 fork 
+1002  2 fork 
+1002  2 is eating

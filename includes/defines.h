@@ -14,16 +14,27 @@
 # define LESS '-'
 # define PLUS '+'
 
+typedef enum e_bool
+{
+	FALSE,
+	TRUE,
+}	t_bool;
+
 typedef struct s_philo
 {
 	int				number_of_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
 	int				must_eat;
 	int				id;
+	t_bool			is_dead;
 	size_t			start;
-	pthread_mutex_t	*mutex;
+	size_t			time_last_meal;
+	pthread_mutex_t death;
+	pthread_mutex_t	*print;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
 }	t_philo;
 
 

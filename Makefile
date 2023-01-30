@@ -8,8 +8,8 @@ HEADER_FILES		=	defines.h philosophers.h
 
 SRCS				=	$(PHILO)						
 
-PHILO				=	main.c	utils.c check_input.c get_input.c	\
-						get_time.c routine.c
+PHILO				=	main.c	utils.c check_input.c 	run_threads.c\
+						get_time.c routine.c init_philo.c
 
 DIRS				=	. philosophers
 IFLAGS				=	-I $(HEADER_PATH)
