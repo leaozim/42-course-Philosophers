@@ -11,11 +11,11 @@ void	print_philo(t_philo *philo)
 
 int	main(int argc, char *argv[])
 {
-	t_philo			*philos;
-	pthread_t		*dinner;
-	pthread_t		death;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t	*fork;
+	t_philo		*philos;
+	pthread_t	*dinner;
+	pthread_t	death;
+	t_mutex		mutex;
+	t_mutex		*fork;
 
 	fork = NULL;
 	if (check_input(argc, argv))

@@ -6,12 +6,11 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/01/30 18:24:48 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:12:22 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-#include <pthread.h>
 
 void	*eye_of_horus(void *_philo)
 {

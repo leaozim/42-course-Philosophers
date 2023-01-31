@@ -6,13 +6,13 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/01/30 18:28:03 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:10:19 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void get_input(t_philo *data, pthread_mutex_t *mtx, char **arguments, int i)
+static void init_date(t_philo *data, t_mutex *mtx, char **arguments, int i)
 {
 	data->number_of_philos = ft_atoi(arguments[1]);
 	data->id = i + 1;
@@ -30,28 +30,35 @@ void get_input(t_philo *data, pthread_mutex_t *mtx, char **arguments, int i)
 	pthread_mutex_init(&data->death, NULL);
 }
 
+static void	assign_fork(t_philo *philos, t_mutex **fork, int n_philos, int i)
+{
+	philos->left_fork = &((*fork)[i]);
+	philos->right_fork = &((*fork)[(i + 1) % n_philos]);
+}
 
+static t_mutex	*init_forks(int n_philos, t_mutex **fork)
+{
+	int		i;
 
-t_philo	*create_philos(int n_philos, char **arguments, pthread_mutex_t *print, pthread_mutex_t **fork)
+	i = -1;
+	*fork = malloc(sizeof(t_mutex) * n_philos);
+	while (++i < n_philos)
+		pthread_mutex_init(&((*fork)[i]), NULL);
+	return (*fork);
+}
+
+t_philo	*create_philos(int n_philos, char **arguments, t_mutex *print, t_mutex **fork)
 {
 	t_philo	*philos;
 	int		i;
 
 	philos = malloc(sizeof(t_philo) * n_philos);
-	*fork = malloc(sizeof(pthread_mutex_t) * n_philos);
-	i = 0;
-	while (i< n_philos)
+	*fork = init_forks(n_philos, fork);
+	i = -1;
+	while (++i < n_philos)
 	{
-		pthread_mutex_init(&((*fork)[i]), NULL);
-		i++;
-	}
-	i = 0;
-	while (i < n_philos)
-	{
-		get_input(&philos[i], print, arguments, i);
-		philos[i].left_fork = &((*fork)[i]);
-		philos[i].right_fork = &((*fork)[(i + 1) % n_philos]);
-		i++;
+		init_date(&philos[i], print, arguments, i);
+		assign_fork(&philos[i], fork, n_philos, i);
 	}
 	return (philos);
 }
