@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 09:38:19 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/01/31 11:08:52 by lade-lim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
+#include <stdio.h>
 
 void	print_actions(t_philo *philo, char *action)
 {
 	pthread_mutex_lock(philo->print);
-	printf("%-5lu %d %s", get_timestamp(philo->start), philo->id, action);	
+	printf("%-5lu %d %s", get_timestamp(philo->start), philo->id, action);
 	pthread_mutex_unlock(philo->print);
 }
 
@@ -23,25 +36,32 @@ void	drop_the_fork(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork);
 }
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
 	pick_up_the_fork(philo);
-	print_actions(philo, EATING);
+	pthread_mutex_lock(philo->print);
+	printf("%-5lu %d is eating\n", get_timestamp(philo->start), philo->id);
 	philo->must_eat--;
+	// printf("must eat = %d\n", philo->must_eat);
 	philo->time_last_meal = get_time();
-	usleep(philo->time_to_eat * 1000);
+	pthread_mutex_unlock(philo->print);
+	// print_actions(philo, EATING);
 	drop_the_fork(philo);
+	usleep(philo->time_to_eat * 1000);
+	return (0);
 }
 
-void	sleeping(t_philo *philo)
+int	sleeping(t_philo *philo)
 {
 	print_actions(philo, SLEEPING);
 	usleep(philo->time_to_sleep * 1000);
+	return (0);
 }
 
-void	thinking(t_philo *philo)
+int	thinking(t_philo *philo)
 {
 	print_actions(philo, THINKING);
+	return (0);
 }
 
 void	*rotine(void *_philo)
@@ -50,12 +70,23 @@ void	*rotine(void *_philo)
 
 	philo = (t_philo *)_philo;
 	while (philo->must_eat)
+		
 	{
 		eating(philo);
-		if (philo->must_eat == 0 || philo->is_dead == TRUE)
+		if (philo->is_dead)
+			break ;
+		if (philo->must_eat == 0)
 			break ;
 		sleeping(philo);
 		thinking(philo);
+		printf("-------------------------iuiudfsdfbn--------------------------\n");
+			
+			// break ;
 	}
+	// while (eating(philo) && sleeping(philo) && thinking(philo))
+	// {
+	// 	printf("sssoi\n");
+	// 	continue ;
+	// }
 	return (NULL);
 }

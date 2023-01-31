@@ -6,11 +6,12 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/01/30 21:12:22 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:24:05 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include <stddef.h>
 
 void	*eye_of_horus(void *_philo)
 {
@@ -23,18 +24,19 @@ void	*eye_of_horus(void *_philo)
 	{
 		if (philos[i].must_eat == 0)
 		{
-			return (NULL) ;
+			break ;
 		}
-		if ((get_time() - philos[i].time_last_meal) > philos[i].time_to_die && philos[i].is_dead == FALSE)
+	
+		if	(get_timestamp(philos[i].start) - philos[i].time_last_meal > philos[i].time_of_death)
 		{
 			pthread_mutex_lock(&philos[i].death);
 			pthread_mutex_lock(philos[i].print);
+			philos->time_of_death = get_timestamp(philos[i].start);
 			printf("%-5lu %d o gato morreu \n", get_timestamp(philos[i].start), philos[i].id);
-			philos[i].is_dead = TRUE;
+			philos->is_dead = philos[i].id;
 			pthread_mutex_unlock(philos[i].print);
-			
 			pthread_mutex_unlock(&philos[i].death);
-			return (NULL) ;
+			break ;
 		}
 		i++;
 		if (i == philos[0].number_of_philos)

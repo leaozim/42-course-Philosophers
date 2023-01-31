@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/01/30 21:10:19 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/01/31 10:54:40 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void init_date(t_philo *data, t_mutex *mtx, char **arguments, int i)
 	data->time_to_eat = ft_atoi(arguments[3]);
 	data->time_to_sleep = ft_atoi(arguments[4]);
 	data->time_last_meal = -1;
-	data->is_dead = FALSE;
+	data->is_dead = -1;
 	if (arguments[5])
 		data->must_eat = ft_atoi(arguments[5]);
 	else

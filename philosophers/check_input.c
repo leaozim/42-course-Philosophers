@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 09:38:02 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/01/31 10:44:12 by lade-lim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
 
 static	int	is_valid_number(char *nbr[])
@@ -40,6 +52,6 @@ int	check_input(int argc, char *argv[])
 	if (argc < 5 || argc > 6)
 		return(msg_error_invald_argc(), 1);
 	if (is_valid_number(argv))
-		printf("Args must be unsigned integers greater than 0 and less than int max.\n");
+		return(printf("Args must be unsigned integers greater than 0 and less than int max.\n"), 1);
 	return (0);
 }

@@ -38,7 +38,8 @@ typedef struct s_philo
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			time_last_meal;
-	t_bool			is_dead;
+	int				is_dead;
+	size_t 			time_of_death;
 	t_mutex			death;
 	t_mutex			*print;
 	t_mutex			*left_fork;
