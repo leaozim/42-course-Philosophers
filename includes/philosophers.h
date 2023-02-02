@@ -20,9 +20,10 @@ void	get_input(t_philo *data, pthread_mutex_t *mtx, int i);
 void	*eye_of_horus(void *_philo);
 t_bool	travar(t_philo *philo);
 t_philo	*create_philos(int n_philos, char **arguments, t_common *common, t_mutex **fork);
-
+int	is_satiated(t_philo *philo);
 // t_philo	*create_philos(int n_philos, char **arguments, pthread_mutex_t *print, pthread_mutex_t **fork);
 t_bool	its_full(t_philo *philo);
 t_bool	is_dead(t_philo *philo);
+int	ft_strcmp(char *s1, char *s2);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/02 10:01:32 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:42:07 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include <bits/types/cookie_io_functions_t.h>
 
 static void init_date(t_philo *data, t_common *common,  int i)
 {
@@ -18,11 +19,12 @@ static void init_date(t_philo *data, t_common *common,  int i)
 	data->id = i + 1;
 	data->time_last_meal = 0;
 	data->meals = common->must_eat;
+	data->meals_eaten = 0;
 	data->common = common;
-	data->fome = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->fome, NULL);
-	data->quanto_tempo_de_fome = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->quanto_tempo_de_fome, NULL);
+	data->lock_meals = (t_mutex *)malloc(sizeof(t_mutex));
+	pthread_mutex_init(data->lock_meals, NULL);
+	data->look_meals_eaten = (t_mutex *)malloc(sizeof(t_mutex));
+	pthread_mutex_init(data->look_meals_eaten, NULL);
 }
 
 static void	assign_fork(t_philo *philos, t_mutex **fork, int n_philos, int i)
@@ -47,10 +49,6 @@ static void shared_data( t_common *common, char **arguments)
 	t_mutex *print;
 	t_mutex *death;
 
-	print = (t_mutex *)malloc(sizeof(t_mutex));
-	death = (t_mutex *)malloc(sizeof(t_mutex));
-	common->print = print;
-	common->death = death;
 	common->start = 0;
 	common->number_of_philos = ft_atoi(arguments[1]);
 	common->time_to_die = ft_atoi(arguments[2]);
@@ -60,6 +58,10 @@ static void shared_data( t_common *common, char **arguments)
 		common->must_eat = ft_atoi(arguments[5]);
 	else
 		common->must_eat = -1;
+	print = (t_mutex *)malloc(sizeof(t_mutex));
+	common->print = print;
+	death = (t_mutex *)malloc(sizeof(t_mutex));
+	common->death = death;
 	pthread_mutex_init(common->print, NULL);
 	pthread_mutex_init(common->death, NULL);
 }
@@ -69,10 +71,10 @@ t_philo	*create_philos(int n_philos, char **arguments, t_common *common, t_mutex
 	t_philo	*philos;
 	int		i;
 
-
-	shared_data(common, arguments);
 	philos = malloc(sizeof(t_philo) * n_philos);
 	*fork = init_forks(n_philos, fork);
+	shared_data(common, arguments);
+	printf("%d\n", common->number_of_philos);
 	i = -1;
 	while (++i < n_philos)
 	{

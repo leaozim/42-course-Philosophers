@@ -53,10 +53,9 @@ typedef struct s_philo
 	size_t			time_last_meal;
 	int				is_dead;
 	size_t 			time_of_death;
-	
-	t_mutex			*fome;
+	int				meals_eaten;
 	t_mutex			*lock_meals;
-	t_mutex			*quanto_tempo_de_fome;
+	t_mutex			*look_meals_eaten;
 	
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
