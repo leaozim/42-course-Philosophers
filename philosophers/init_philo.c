@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/02 10:00:35 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:01:32 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void init_date(t_philo *data, t_common *common,  int i)
 {
-	
+	data->is_dead = -1;
 	data->id = i + 1;
 	data->time_last_meal = 0;
 	data->meals = common->must_eat;
@@ -42,14 +42,11 @@ static t_mutex	*init_forks(int n_philos, t_mutex **fork)
 	return (*fork);
 }
 
-t_philo	*create_philos(int n_philos, char **arguments, t_common *common, t_mutex **fork)
+static void shared_data( t_common *common, char **arguments)
 {
-	t_philo	*philos;
-	int		i;
 	t_mutex *print;
 	t_mutex *death;
 
-	
 	print = (t_mutex *)malloc(sizeof(t_mutex));
 	death = (t_mutex *)malloc(sizeof(t_mutex));
 	common->print = print;
@@ -63,11 +60,19 @@ t_philo	*create_philos(int n_philos, char **arguments, t_common *common, t_mutex
 		common->must_eat = ft_atoi(arguments[5]);
 	else
 		common->must_eat = -1;
-	philos = malloc(sizeof(t_philo) * n_philos);
-	*fork = init_forks(n_philos, fork);
 	pthread_mutex_init(common->print, NULL);
 	pthread_mutex_init(common->death, NULL);
-	philos->is_dead = -1;
+}
+
+t_philo	*create_philos(int n_philos, char **arguments, t_common *common, t_mutex **fork)
+{
+	t_philo	*philos;
+	int		i;
+
+
+	shared_data(common, arguments);
+	philos = malloc(sizeof(t_philo) * n_philos);
+	*fork = init_forks(n_philos, fork);
 	i = -1;
 	while (++i < n_philos)
 	{
