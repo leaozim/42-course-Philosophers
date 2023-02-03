@@ -14,11 +14,11 @@
 # define LESS '-'
 # define PLUS '+'
 
-# define TAKE_FORK "has taken a fork\n"
-# define EATING "is eating\n"
-# define SLEEPING "is sleeping\n"
-# define THINKING "is thinking\n"
-# define DIED = "died\n"
+# define TAKE_FORK	"has taken a fork\n"
+# define EATING		"is eating\n"
+# define SLEEPING	"is sleeping\n"
+# define THINKING	"is thinking\n"
+# define DIED 		"died\n"
 
 typedef enum e_bool
 {
@@ -33,8 +33,10 @@ typedef struct s_common
 	t_mutex			*print;
 	t_mutex			*death;
 	size_t			start;
+	int 			is_dead;
 	int				number_of_philos;
 	int				must_eat;
+	int				everyone_ate;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
@@ -51,12 +53,15 @@ typedef struct s_philo
 	// size_t			time_to_sleep;
 	int				meals;
 	size_t			time_last_meal;
-	int				is_dead;
+	int				stop;
 	size_t 			time_of_death;
 	int				meals_eaten;
+	t_mutex			*look_current_time;
+	t_mutex			*look_start;
+	t_mutex			*look_stop;
 	t_mutex			*lock_meals;
 	t_mutex			*look_meals_eaten;
-	
+	size_t			time_start;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
 	t_common		*common;
