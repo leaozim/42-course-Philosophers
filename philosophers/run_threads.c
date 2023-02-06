@@ -6,12 +6,11 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:17:54 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:38:06 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-#include <unistd.h>
 
 size_t	lock_time(t_philo	*philo)
 {
@@ -42,6 +41,17 @@ int	lock_meals_eaten(t_philo	*philo)
 	pthread_mutex_unlock(philo->look_meals_eaten);
 	return (meals_eaten);
 }
+
+// int	lock_is_dead(t_philo	*philo)
+// {
+// 	int	is_dead;
+
+// 	pthread_mutex_lock(philo->common->look_is_dead);
+// 	is_dead = philo->common->is_dead;
+// 	pthread_mutex_unlock(philo->common->look_is_dead);
+// 	return (is_dead);
+// }
+
 
 int	lock_start(t_philo	*philo)
 {
@@ -80,9 +90,13 @@ void set_is_dead(t_philo *philos)
 {
 	int i;
 	i = 0;
+	
+	// pthread_mutex_lock(philos->common->look_is_dead);
 	philos->common->is_dead = 1;
+	// pthread_mutex_unlock(philos->common->look_is_dead);
 	while (i < (*philos).common->number_of_philos)
 	{
+		philos[i].stop_while = 1;
 		pthread_mutex_lock(philos->look_stop);
 		philos[i].stop = 1;
 		i++;
@@ -108,7 +122,7 @@ void	*eye_of_horus(void *_philo)
 			set_is_dead(philos);
 			pthread_mutex_unlock(philos->common->death);
 			pthread_mutex_lock(philos->common->print);
-			printf(RED"%-5lu %d  the cat is die\n"RESET, get_timestamp(philos->common->start), philos[i].id);
+			printf("%-5lu %d  the cat is die\n", get_timestamp(philos->common->start), philos[i].id);
 			pthread_mutex_unlock(philos->common->print);
 			return (NULL) ; 
 		}
@@ -123,6 +137,7 @@ void	*eye_of_horus(void *_philo)
 	
 }
 
+
 void	run_threads(pthread_t *dinner, pthread_t *death, t_philo *philos, int n_philos)
 {
 	int		i;
@@ -136,6 +151,4 @@ void	run_threads(pthread_t *dinner, pthread_t *death, t_philo *philos, int n_phi
 	while (++i < n_philos)
 		pthread_join(dinner[i], NULL);
 	pthread_join(*death, NULL);
-
-	
 }

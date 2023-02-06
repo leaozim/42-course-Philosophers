@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:13:04 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:13:06 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:22:17 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,27 @@
 
 static void	pick_up_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(philo->right_fork);
+	size_t current_time;
+
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+	}
+	pthread_mutex_lock(philo->common->print);
 	if (lock_stop(philo) != 1)
 	{
-		print_actions(philo, TAKE_FORK);
-		print_actions(philo, TAKE_FORK);
+		current_time =  get_timestamp(philo->common->start);
+		printf("%-5lu %d %s", current_time, philo->id, TAKE_FORK);
+		current_time =  get_timestamp(philo->common->start);
+		printf("%-5lu %d %s", current_time, philo->id, TAKE_FORK);
 	}
-	else if (lock_stop(philo) == 1)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
+	pthread_mutex_unlock(philo->common->print);
 }
 
 static void	drop_forks(t_philo *philo)

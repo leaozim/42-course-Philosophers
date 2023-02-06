@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:15:57 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:37:14 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static void	init_date(t_philo *data, t_common *common, int i)
 {
 	data->stop = 0;
+	data->stop_while = 0;
 	data->id = i + 1;
 	data->time_last_meal = 0;
 	data->meals_eaten = 0;
@@ -37,6 +38,7 @@ static void	shared_data( t_common *common, char **arguments)
 {
 	t_mutex	*print;
 	t_mutex	*death;
+	t_mutex *is_dead;
 
 	common->everyone_ate = 0;
 	common->is_dead = 0;
@@ -53,6 +55,9 @@ static void	shared_data( t_common *common, char **arguments)
 	common->print = print;
 	death = (t_mutex *)malloc(sizeof(t_mutex));
 	common->death = death;
+	is_dead = (t_mutex *)malloc(sizeof(t_mutex));
+	common->look_is_dead = is_dead;
+	pthread_mutex_init(common->look_is_dead, NULL);
 	pthread_mutex_init(common->print, NULL);
 	pthread_mutex_init(common->death, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:57:32 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:10:19 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:31:37 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_common
 	size_t			time_to_sleep;
 	t_mutex			*print;
 	t_mutex			*death;
+	t_mutex			*look_is_dead;
 }	t_common;
 
 typedef struct s_philo
@@ -62,6 +63,7 @@ typedef struct s_philo
 	int				meals;
 	int				meals_eaten;
 	int				stop;
+	int				stop_while;
 	size_t			time_last_meal;
 	size_t			time_of_death;
 	size_t			time_start;

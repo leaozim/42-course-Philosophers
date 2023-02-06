@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:11:52 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:11:54 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:38:59 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	destroy_philosophers(t_philo *philos, t_thread *dinner, t_mutex **fork)
 	}
 	pthread_mutex_destroy(philos->common->death);
 	pthread_mutex_destroy(philos->common->print);
+	// pthread_mutex_destroy(philos->common->look_is_dead);
+	// free(philos->common->look_is_dead);
 	free(philos->common->death);
 	free(philos->common->print);
 	free(*fork);
