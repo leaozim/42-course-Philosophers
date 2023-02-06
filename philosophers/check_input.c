@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:02 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/01/31 10:44:12 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:10:06 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,34 @@ static	int	is_valid_number(char *nbr[])
 			j++;
 		}
 		value = (unsigned int)ft_atoi(nbr[i]);
-		if ((value > INT_MAX  || value == 0))
+		if ((value > INT_MAX || value == 0))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-static	void msg_error_invald_argc(void)
+static	void	msg_error_invald_argc(void)
 {
-	printf("%s\n", "Invalid number of arguments.\nUsage:\
-	./philophers [number_of_philosophers [time_to_die] [time_to_eat] [time_to_eat]");
+	printf(" ____________________________________________________ \n");
+	printf("|                                                    |\n");
+	printf(RED"|            Please enter 4 or 5 arguments           |\n"RESET);
+	printf("|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |\n");
+	printf("|                                                    |\n");
+	printf("|             [1][Number of philosophers]            |\n");
+	printf("|             [2][Time to die]                       |\n");
+	printf("|             [3][Time to eat]                       |\n");
+	printf("|             [4][Time to sleep]                     |\n");
+	printf("|             [5][Number of meals]                   |\n");
+	printf("|____________________________________________________|\n");
 }
 
 int	check_input(int argc, char *argv[])
 {
 	(void)argv;
 	if (argc < 5 || argc > 6)
-		return(msg_error_invald_argc(), 1);
+		return (msg_error_invald_argc(), 1);
 	if (is_valid_number(argv))
-		return(printf("Args must be unsigned integers greater than 0 and less than int max.\n"), 1);
+		return (printf(RED"%s"RESET, ERROR_MSG), 1);
 	return (0);
 }

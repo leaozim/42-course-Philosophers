@@ -1,6 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   printf_colors.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 13:51:21 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/02/06 12:10:37 by lade-lim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PRINTF_COLORS_H
 # define PRINTF_COLORS_H
+
+// regular
+
+# define L_RED			"\e[0;38;5;9m\002"
+# define D_GREEN		"\e[0;38;5;22m\002"
+# define V_GREEN		"\e[0;38;5;82m\002"
+# define P_GREEN		"\e[0;38;5;23m\002"
+# define V_BLUE			"\e[0;38;5;27m\002"
+# define P_BLUE			"\e[0;38;5;24m\002"
+# define V_CYAN			"\e[0;38;5;44m\002"
+# define PURPLE			"\e[0;38;5;93m\002"
+# define LILAC			"\e[0;38;5;13m\002"
+# define PINK			"\e[0;38;5;199m\002"
+# define L_YELLOW		"\e[0;38;5;191m\002"
+# define L_GRAY			"\e[0;38;5;245m\002"
+# define ORANGE			"\e[0;38;5;166m\002"
+# define V_ORANGE		"\e[0;38;5;202m\002"
 
 //Regular text
 # define BLACK   "\001\e[0;30m\002"

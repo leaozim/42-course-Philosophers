@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:37:57 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/02 11:13:31 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:20:39 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_atoi(const char *str)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int				id;
+	int	id;
 
 	id = 0;
 	while ((s1[id] != '\0') && (s2[id] != '\0') && s1[id] == s2[id])

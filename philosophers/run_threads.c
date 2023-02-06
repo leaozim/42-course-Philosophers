@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/03 17:40:46 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:17:54 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	lock_start(t_philo	*philo)
 int	is_satiated(t_philo *philo)
 {
 	int i;
+
+	i = 0;
 	if (lock_meals_eaten(philo) == philo->common->must_eat)
 	{
 		philo->common->everyone_ate += 1;

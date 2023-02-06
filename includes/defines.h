@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   defines.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 13:57:32 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/02/06 12:10:19 by lade-lim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINES_H
 # define DEFINES_H
 
@@ -19,6 +31,7 @@
 # define SLEEPING	"is sleeping\n"
 # define THINKING	"is thinking\n"
 # define DIED 		"died\n"
+# define ERROR_MSG "Args must be unsigned integers greater than 0!\n"
 
 typedef enum e_bool
 {
@@ -26,54 +39,40 @@ typedef enum e_bool
 	TRUE,
 }	t_bool;
 
-typedef pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
+typedef pthread_t		t_thread;
 
 typedef struct s_common
 {
-	t_mutex			*print;
-	t_mutex			*death;
-	size_t			start;
-	int 			is_dead;
-	int				number_of_philos;
+	int				is_dead;
 	int				must_eat;
 	int				everyone_ate;
+	int				number_of_philos;
+	size_t			start;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-} t_common;
+	t_mutex			*print;
+	t_mutex			*death;
+}	t_common;
 
 typedef struct s_philo
 {
 	int				id;
-	// int				must_eat;
-	// int				number_of_philos;
-	
-	// size_t			time_to_die;
-	// size_t			time_to_eat;
-	// size_t			time_to_sleep;
 	int				meals;
-	size_t			time_last_meal;
-	int				stop;
-	size_t 			time_of_death;
 	int				meals_eaten;
+	int				stop;
+	size_t			time_last_meal;
+	size_t			time_of_death;
+	size_t			time_start;
 	t_mutex			*look_current_time;
 	t_mutex			*look_start;
 	t_mutex			*look_stop;
 	t_mutex			*lock_meals;
 	t_mutex			*look_meals_eaten;
-	size_t			time_start;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
 	t_common		*common;
 }	t_philo;
 
-// enum actions
-// {
-// 	EATI = 1,
-// 	SLEEAP = 2,
-// 	THINK = 3,
-// 	DIE = 4,
-// 	TAKE_FORK = 5,
-
-// };
 #endif
