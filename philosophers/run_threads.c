@@ -6,116 +6,11 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:01:45 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:34:03 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-size_t	lock_time(t_philo	*philo)
-{
-	size_t	last_meal;
-
-	pthread_mutex_lock(philo->lock_meals);
-	last_meal = philo->time_last_meal;
-	pthread_mutex_unlock(philo->lock_meals);
-	return (last_meal);
-}
-
-int	lock_stop(t_philo	*philo)
-{
-	int	stop;
-
-	pthread_mutex_lock(philo->look_stop);
-	stop = philo->stop;
-	pthread_mutex_unlock(philo->look_stop);
-	return (stop);
-}
-
-int	lock_meals_eaten(t_philo	*philo)
-{
-	int	meals_eaten;
-
-	pthread_mutex_lock(philo->look_meals_eaten);
-	meals_eaten = philo->meals_eaten;
-	pthread_mutex_unlock(philo->look_meals_eaten);
-	return (meals_eaten);
-}
-
-int	lock_is_dead(t_philo	*philo)
-{
-	int	is_dead;
-
-	pthread_mutex_lock(philo->common->look_is_dead);
-	is_dead = philo->common->is_dead;
-	pthread_mutex_unlock(philo->common->look_is_dead);
-	return (is_dead);
-}
-
-
-int	lock_start(t_philo	*philo)
-{
-	int	start;
-
-	pthread_mutex_lock(philo->look_start);
-	start = philo->time_start;
-	pthread_mutex_unlock(philo->look_start);
-	return (start);
-}
-
-int	lock_everyone_ate(t_philo	*philo)
-{
-	int	everyone_ate;
-
-	pthread_mutex_lock(philo->common->look_everyone_ate);
-	everyone_ate = philo->common->everyone_ate;
-	pthread_mutex_unlock(philo->common->look_everyone_ate);
-	return (everyone_ate);
-}
-
-
-int	is_satiated(t_philo *philo)
-{
-	int i;
-
-	i = 0;
-	if (lock_meals_eaten(philo) == philo->common->must_eat)
-	{
-		pthread_mutex_lock(philo->common->look_everyone_ate);
-		philo->common->everyone_ate += 1;
-		pthread_mutex_unlock(philo->common->look_everyone_ate);
-		if (lock_everyone_ate(philo) == philo->common->number_of_philos)
-		{
-			while (i < philo->common->number_of_philos)
-			{
-				pthread_mutex_lock(philo->look_stop);
-				philo->stop = 1;
-				i++;
-				pthread_mutex_unlock(philo->look_stop);
-			}	
-		}
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-void set_is_dead(t_philo *philos)
-{
-	int i;
-	i = 0;
-	
-	pthread_mutex_lock(philos->common->look_is_dead);
-	philos->common->is_dead = 1;
-	pthread_mutex_unlock(philos->common->look_is_dead);
-	while (i < (*philos).common->number_of_philos)
-	{
-		philos[i].stop_while = 1;
-		pthread_mutex_lock(philos->look_stop);
-		philos[i].stop = 1;
-		i++;
-		pthread_mutex_unlock(philos->look_stop);
-	}
-}
 
 void	*eye_of_horus(void *_philo)
 {
@@ -131,9 +26,7 @@ void	*eye_of_horus(void *_philo)
 		current_time = get_timestamp(philos->common->start);
 		if (current_time - lock_time(&philos[i]) > philos->common->time_to_die)
 		{
-			pthread_mutex_lock(philos->common->death);
 			set_is_dead(philos);
-			pthread_mutex_unlock(philos->common->death);
 			pthread_mutex_lock(philos->common->print);
 			printf("%-5lu %d  the cat is die\n", get_timestamp(philos->common->start), philos[i].id);
 			pthread_mutex_unlock(philos->common->print);
@@ -150,18 +43,17 @@ void	*eye_of_horus(void *_philo)
 	
 }
 
-
-void	run_threads(pthread_t *dinner, pthread_t *death, t_philo *philos, int n_philos)
+void	run_threads(t_thread *dinner, t_thread *death, t_philo *philos, int n_p)
 {
 	int		i;
 
 	i = -1;
 	philos->common->start = get_time();
-	while (++i < n_philos)
+	while (++i < n_p)
 		pthread_create(&dinner[i], NULL, &rotine, (void *)&philos[i]);
 	i = -1;
 	pthread_create(death, NULL, &eye_of_horus, (void *)philos);
-	while (++i < n_philos)
+	while (++i < n_p)
 		pthread_join(dinner[i], NULL);
 	pthread_join(*death, NULL);
 }

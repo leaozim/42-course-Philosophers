@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:13:04 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 17:22:17 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:25:03 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	pick_up_forks(t_philo *philo)
 {
-	size_t current_time;
+	size_t	current_time;
 
 	if (philo->id % 2)
 	{
@@ -29,9 +29,9 @@ static void	pick_up_forks(t_philo *philo)
 	pthread_mutex_lock(philo->common->print);
 	if (lock_stop(philo) != 1)
 	{
-		current_time =  get_timestamp(philo->common->start);
+		current_time = get_timestamp(philo->common->start);
 		printf("%-5lu %d %s", current_time, philo->id, TAKE_FORK);
-		current_time =  get_timestamp(philo->common->start);
+		current_time = get_timestamp(philo->common->start);
 		printf("%-5lu %d %s", current_time, philo->id, TAKE_FORK);
 	}
 	pthread_mutex_unlock(philo->common->print);

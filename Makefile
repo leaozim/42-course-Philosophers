@@ -10,7 +10,8 @@ SRCS				=	$(PHILO)
 
 PHILO				=	main.c	utils.c check_input.c 	run_threads.c	\
 						get_time.c routine.c init_philo.c actions.c		\
-						destroy_philosophers.c
+						destroy_philosophers.c stopping_conditions.c	\
+						variable_protections1.c variable_protections2.c
 
 DIRS				=	. philosophers
 IFLAGS				=	-I $(HEADER_PATH)

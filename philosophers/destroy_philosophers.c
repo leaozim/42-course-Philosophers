@@ -6,13 +6,13 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:11:52 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 09:56:17 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:31:40 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	destroy_philosophers(t_philo *philos, t_thread *dinner, t_mutex **fork)
+static void	free_philos(t_philo *philos, t_mutex **fork)
 {
 	int	i;
 
@@ -31,15 +31,25 @@ void	destroy_philosophers(t_philo *philos, t_thread *dinner, t_mutex **fork)
 		free(philos[i].look_start);
 		pthread_mutex_destroy(&(*fork)[i]);
 	}
-	pthread_mutex_destroy(philos->common->death);
-	pthread_mutex_destroy(philos->common->print);
-	pthread_mutex_destroy(philos->common->look_is_dead);
-	pthread_mutex_destroy(philos->common->look_everyone_ate);
-	free(philos->common->look_everyone_ate);
-	free(philos->common->look_is_dead);
-	free(philos->common->death);
-	free(philos->common->print);
 	free(*fork);
+}
+
+static void	free_common(t_common *common)
+{
+	pthread_mutex_destroy(common->death);
+	pthread_mutex_destroy(common->print);
+	pthread_mutex_destroy(common->look_is_dead);
+	pthread_mutex_destroy(common->look_everyone_ate);
+	free(common->look_everyone_ate);
+	free(common->look_is_dead);
+	free(common->death);
+	free(common->print);
+}
+
+void	destroy_philosophers(t_philo *philos, t_thread *dinner, t_mutex **fork)
+{
+	free_philos(philos, fork);
+	free_common(philos->common);
 	free(dinner);
 	free(philos);
 }

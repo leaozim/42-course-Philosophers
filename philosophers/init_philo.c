@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 09:55:17 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:33:22 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	shared_data( t_common *common, char **arguments)
 		common->must_eat = -1;
 	common->print = (t_mutex *)malloc(sizeof(t_mutex));
 	common->death = (t_mutex *)malloc(sizeof(t_mutex));
-	common->look_is_dead  = (t_mutex *)malloc(sizeof(t_mutex));
+	common->look_is_dead = (t_mutex *)malloc(sizeof(t_mutex));
 	common->look_everyone_ate = (t_mutex *)malloc(sizeof(t_mutex));
 	pthread_mutex_init(common->print, NULL);
 	pthread_mutex_init(common->death, NULL);
