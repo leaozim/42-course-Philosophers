@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:07 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 13:08:17 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:41:20 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	ft_usleep(int ms)
 
 	time = get_time();
 	while (get_time() - time < (size_t)ms)
-		usleep(100);
+		usleep(10);
 }
