@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 09:49:16 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:01:45 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ int	lock_start(t_philo	*philo)
 	return (start);
 }
 
+int	lock_everyone_ate(t_philo	*philo)
+{
+	int	everyone_ate;
+
+	pthread_mutex_lock(philo->common->look_everyone_ate);
+	everyone_ate = philo->common->everyone_ate;
+	pthread_mutex_unlock(philo->common->look_everyone_ate);
+	return (everyone_ate);
+}
+
+
 int	is_satiated(t_philo *philo)
 {
 	int i;
@@ -70,8 +81,10 @@ int	is_satiated(t_philo *philo)
 	i = 0;
 	if (lock_meals_eaten(philo) == philo->common->must_eat)
 	{
+		pthread_mutex_lock(philo->common->look_everyone_ate);
 		philo->common->everyone_ate += 1;
-		if (philo->common->everyone_ate == philo->common->number_of_philos)
+		pthread_mutex_unlock(philo->common->look_everyone_ate);
+		if (lock_everyone_ate(philo) == philo->common->number_of_philos)
 		{
 			while (i < philo->common->number_of_philos)
 			{
@@ -126,7 +139,7 @@ void	*eye_of_horus(void *_philo)
 			pthread_mutex_unlock(philos->common->print);
 			return (NULL) ; 
 		}
-		if (philos->common->everyone_ate == philos->common->number_of_philos || lock_stop(&philos[i]) == 1)
+		if (lock_everyone_ate(&philos[i]) == philos->common->number_of_philos || lock_stop(&philos[i]) == 1)
 			return (NULL) ;
 		i++;
 		if (i == philos->common->number_of_philos)

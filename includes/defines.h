@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:57:32 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 17:31:37 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:54:24 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_common
 	t_mutex			*print;
 	t_mutex			*death;
 	t_mutex			*look_is_dead;
+	t_mutex			*look_everyone_ate;
 }	t_common;
 
 typedef struct s_philo

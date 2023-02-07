@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 17:37:14 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:55:17 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ static void	init_date(t_philo *data, t_common *common, int i)
 
 static void	shared_data( t_common *common, char **arguments)
 {
-	t_mutex	*print;
-	t_mutex	*death;
-	t_mutex *is_dead;
-
 	common->everyone_ate = 0;
 	common->is_dead = 0;
 	common->start = 0;
@@ -51,15 +47,14 @@ static void	shared_data( t_common *common, char **arguments)
 		common->must_eat = ft_atoi(arguments[5]);
 	else
 		common->must_eat = -1;
-	print = (t_mutex *)malloc(sizeof(t_mutex));
-	common->print = print;
-	death = (t_mutex *)malloc(sizeof(t_mutex));
-	common->death = death;
-	is_dead = (t_mutex *)malloc(sizeof(t_mutex));
-	common->look_is_dead = is_dead;
-	pthread_mutex_init(common->look_is_dead, NULL);
+	common->print = (t_mutex *)malloc(sizeof(t_mutex));
+	common->death = (t_mutex *)malloc(sizeof(t_mutex));
+	common->look_is_dead  = (t_mutex *)malloc(sizeof(t_mutex));
+	common->look_everyone_ate = (t_mutex *)malloc(sizeof(t_mutex));
 	pthread_mutex_init(common->print, NULL);
 	pthread_mutex_init(common->death, NULL);
+	pthread_mutex_init(common->look_is_dead, NULL);
+	pthread_mutex_init(common->look_everyone_ate, NULL);
 }
 
 static void	assign_fork(t_philo *philos, t_mutex **fork, int n_philos, int i)
