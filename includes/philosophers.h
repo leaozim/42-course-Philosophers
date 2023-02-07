@@ -26,6 +26,7 @@ int		is_satiated(t_philo *philo);
 t_bool	its_full(t_philo *philo);
 t_bool	is_dead(t_philo *philo);
 int		ft_strcmp(char *s1, char *s2);
+void	print_death(t_philo *philo, char *action);
 void	ft_usleep(int ms);
 int		lock_stop(t_philo	*philo);
 int		lock_is_dead(t_philo *philo);

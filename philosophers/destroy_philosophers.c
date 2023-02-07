@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:11:52 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:31:40 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:44:27 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	free_philos(t_philo *philos, t_mutex **fork)
 	int	i;
 
 	i = -1;
-	while (++i < philos->common->number_of_philos)
+	while (++i < philos->common->n_philos)
 	{
 		pthread_mutex_destroy(philos[i].lock_meals);
 		pthread_mutex_destroy(philos[i].look_meals_eaten);

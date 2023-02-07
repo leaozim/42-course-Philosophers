@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:57:32 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 09:54:24 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:44:34 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_common
 	int				is_dead;
 	int				must_eat;
 	int				everyone_ate;
-	int				number_of_philos;
+	int				n_philos;
 	size_t			start;
 	size_t			time_to_die;
 	size_t			time_to_eat;

@@ -6,32 +6,27 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:19 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:34:44 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:07:49 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	print_actions(t_philo *philo, char *action)
+int	one_philo(t_philo *philo)
 {
-	size_t	current_time;
-
-	pthread_mutex_lock(philo->common->print);
-	if (lock_stop(philo) != 1)
+	if (philo->common->n_philos == 1)
 	{
-		current_time = get_timestamp(philo->common->start);
-		printf("%-5lu %d %s", current_time, philo->id, action);
+		print_actions(philo, TAKE_FORK);
+		return (usleep(philo->common->time_to_die * 1000), EXIT_FAILURE);
 	}
-	pthread_mutex_unlock(philo->common->print);
+	return (0);
 }
 
-void	*rotine(void *_philo)
+int	more_than_one_philo(t_philo *philo)
 {
-	t_philo	*philo;
 	int		is_dead;
 	int		stop;
 
-	philo = (t_philo *)_philo;
 	if (philo->id % 2)
 		ft_usleep(5);
 	is_dead = lock_is_dead(philo);
@@ -39,16 +34,28 @@ void	*rotine(void *_philo)
 	{
 		stop = lock_stop(philo);
 		if (is_dead || stop || is_satiated(philo))
-			return (NULL);
+			return (EXIT_FAILURE);
 		eating(philo);
 		if (is_dead || stop || is_satiated(philo))
-			return (NULL);
+			return (EXIT_FAILURE);
 		sleeping(philo);
 		if (is_dead || stop || is_satiated(philo))
-			return (NULL);
+			return (EXIT_FAILURE);
 		thinking(philo);
 		if (is_dead || stop || is_satiated(philo))
-			return (NULL);
+			return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
+}
+
+void	*rotine(void *_philo)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)_philo;
+	if (one_philo(philo))
+		return (NULL);
+	else if (more_than_one_philo(philo))
+		return (NULL);
 	return (NULL);
 }

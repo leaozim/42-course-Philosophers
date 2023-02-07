@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:33:22 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:45:00 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	shared_data( t_common *common, char **arguments)
 	common->everyone_ate = 0;
 	common->is_dead = 0;
 	common->start = 0;
-	common->number_of_philos = ft_atoi(arguments[1]);
+	common->n_philos = ft_atoi(arguments[1]);
 	common->time_to_die = ft_atoi(arguments[2]);
 	common->time_to_eat = ft_atoi(arguments[3]);
 	common->time_to_sleep = ft_atoi(arguments[4]);
