@@ -21,8 +21,6 @@ CFLAGS				=	-Wall -Wextra -Werror -pthread
 VPATH				=	$(addprefix ./philosophers/, $(DIRS))
 VPATH				+=	$(HEADER_PATH)
 
-CFLAGS				+=	-g
-
 WHITE				=	\e[00m
 GREEN				=	\e[32m
 RED					=	\e[91m
@@ -35,11 +33,11 @@ PROGRESS			=	0
 all: $(NAME)
 
 $(NAME):  $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $(OBJS)
+	$(CC) $(IFLAGS) -o $@ $(OBJS)
 	@echo "$(GREEN)Philosophers compiled succesfully$(WHITE)"
 
 $(OBJ_DIR)/%.o: %.c $(HEADER_FILES) Makefile | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@$(CC) $(IFLAGS) -c $< -o $@
 	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
 	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
 
