@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:19 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 11:07:49 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:53:37 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	one_philo(t_philo *philo)
 	if (philo->common->n_philos == 1)
 	{
 		print_actions(philo, TAKE_FORK);
-		return (usleep(philo->common->time_to_die * 1000), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	return (0);
 }

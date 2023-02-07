@@ -33,11 +33,11 @@ PROGRESS			=	0
 all: $(NAME)
 
 $(NAME):  $(OBJ_DIR) $(OBJS)
-	$(CC) $(IFLAGS) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $(OBJS)
 	@echo "$(GREEN)Philosophers compiled succesfully$(WHITE)"
 
 $(OBJ_DIR)/%.o: %.c $(HEADER_FILES) Makefile | $(OBJ_DIR)
-	@$(CC) $(IFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
 	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
 

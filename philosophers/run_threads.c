@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 14:47:16 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:03:09 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*eye_of_horus(void *_philo)
 
 	philos = (t_philo *)_philo;
 	i = 0;
-	usleep(100);
 	while (lock_stop(&philos[i]) == 0)
 	{
 		current_time = get_timestamp(philos->common->start);
@@ -32,6 +31,7 @@ void	*eye_of_horus(void *_philo)
 		i++;
 		if (i == philos->common->n_philos)
 			i = 0;
+		ft_usleep(1);
 	}
 	return (NULL);
 }
