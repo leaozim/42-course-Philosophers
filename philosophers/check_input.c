@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:02 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 12:10:06 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:24:24 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static	int	is_valid_number(char *nbr[])
 
 static	void	msg_error_invald_argc(void)
 {
-	printf(" ____________________________________________________ \n");
-	printf("|                                                    |\n");
+	printf(RED" ____________________________________________________ \n"RESET);
+	printf(RED"|                                                    |\n"RESET);
 	printf(RED"|            Please enter 4 or 5 arguments           |\n"RESET);
-	printf("|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |\n");
-	printf("|                                                    |\n");
-	printf("|             [1][Number of philosophers]            |\n");
-	printf("|             [2][Time to die]                       |\n");
-	printf("|             [3][Time to eat]                       |\n");
-	printf("|             [4][Time to sleep]                     |\n");
-	printf("|             [5][Number of meals]                   |\n");
-	printf("|____________________________________________________|\n");
+	printf(RED"|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |\n"RESET);
+	printf(RED"|                                                    |\n"RESET);
+	printf(RED"|             [1][Number of philosophers]            |\n"RESET);
+	printf(RED"|             [2][Time to die]                       |\n"RESET);
+	printf(RED"|             [3][Time to eat]                       |\n"RESET);
+	printf(RED"|             [4][Time to sleep]                     |\n"RESET);
+	printf(RED"|             [5][Number of meals]                   |\n"RESET);
+	printf(RED"|____________________________________________________|\n"RESET);
 }
 
 int	check_input(int argc, char *argv[])

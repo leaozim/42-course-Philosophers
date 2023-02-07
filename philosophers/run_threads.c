@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:57:59 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:31:46 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	*eye_of_horus(void *_philo)
 	return (NULL);
 }
 
-void	run_threads(t_thread *dinner, t_thread *death, t_philo *philos, int n_p)
+void	run_threads(t_thread *dinner, t_thread *death, t_philo *philo, int n_p)
 {
 	int		i;
 
 	i = -1;
-	philos->common->start = get_time();
+	philo->common->start = get_time();
 	while (++i < n_p)
-		pthread_create(&dinner[i], NULL, &rotine, (void *)&philos[i]);
+		pthread_create(&dinner[i], NULL, &rotine, (void *)&philo[i]);
 	i = -1;
-	pthread_create(death, NULL, &eye_of_horus, (void *)philos);
+	pthread_create(death, NULL, &eye_of_horus, (void *)philo);
 	while (++i < n_p)
 		pthread_join(dinner[i], NULL);
 	pthread_join(*death, NULL);

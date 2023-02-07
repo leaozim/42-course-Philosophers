@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/07 14:31:10 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/02/07 14:31:32 by lade-lim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
@@ -17,7 +29,7 @@ void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 void	print_actions(t_philo *philo, char *action);
 void	ft_usleep(int ms);
-void	run_threads(t_thread *dinner, t_thread *death, t_philo *philos, int n_p);
+void	run_threads(t_thread *dinner, t_thread *death, t_philo *philo, int n_p);
 void	get_input(t_philo *data, pthread_mutex_t *mtx, int i);
 void	*eye_of_horus(void *_philo);
 t_bool	travar(t_philo *philo);
