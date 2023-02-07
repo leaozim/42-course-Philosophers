@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:20 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/06 17:38:06 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:49:16 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int	lock_meals_eaten(t_philo	*philo)
 	return (meals_eaten);
 }
 
-// int	lock_is_dead(t_philo	*philo)
-// {
-// 	int	is_dead;
+int	lock_is_dead(t_philo	*philo)
+{
+	int	is_dead;
 
-// 	pthread_mutex_lock(philo->common->look_is_dead);
-// 	is_dead = philo->common->is_dead;
-// 	pthread_mutex_unlock(philo->common->look_is_dead);
-// 	return (is_dead);
-// }
+	pthread_mutex_lock(philo->common->look_is_dead);
+	is_dead = philo->common->is_dead;
+	pthread_mutex_unlock(philo->common->look_is_dead);
+	return (is_dead);
+}
 
 
 int	lock_start(t_philo	*philo)
@@ -91,9 +91,9 @@ void set_is_dead(t_philo *philos)
 	int i;
 	i = 0;
 	
-	// pthread_mutex_lock(philos->common->look_is_dead);
+	pthread_mutex_lock(philos->common->look_is_dead);
 	philos->common->is_dead = 1;
-	// pthread_mutex_unlock(philos->common->look_is_dead);
+	pthread_mutex_unlock(philos->common->look_is_dead);
 	while (i < (*philos).common->number_of_philos)
 	{
 		philos[i].stop_while = 1;

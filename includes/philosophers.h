@@ -28,6 +28,6 @@ t_bool	is_dead(t_philo *philo);
 int		ft_strcmp(char *s1, char *s2);
 int		lock_stop(t_philo	*philo);
 void	ft_usleep(int ms);
-int		lock_is_dead(t_philo	*philo);
+int		lock_is_dead(t_philo *philo);
 void	destroy_philosophers(t_philo *philos, t_thread *dinner, t_mutex **fork);
 #endif
