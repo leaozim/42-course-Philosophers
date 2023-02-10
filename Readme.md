@@ -1,8 +1,12 @@
-# Introduction
+<h1 align=center>
+	<b>Philosophers</b>
+</h1>
+
+## Introduction
 
 Philosophers is a 42 Scool project built around the famous philosophers dinner problem posed by Dijkstra in 1965 . It aims to introduce the concept of concurrent programming, where we must find a solution to the problem using only threads and mutexes.
 
-# General Description
+## General Description
 
 The subject describes the problem as follows:
 ______________
