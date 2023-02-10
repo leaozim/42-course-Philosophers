@@ -6,19 +6,21 @@ OBJS				=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 HEADER_PATH			=	./includes
 HEADER_FILES		=	defines.h philosophers.h
 
-SRCS				=	$(PHILO)						
+SRCS				=	$(SOURCES)
 
-PHILO				=	main.c	utils.c check_input.c 	run_threads.c	\
+CC					=	cc
+
+SOURCES				=	main.c	utils.c check_input.c 	run_threads.c	\
 						get_time.c routine.c init_philo.c actions.c		\
-						destroy_philosophers.c stopping_conditions.c	\
-						variable_protections1.c variable_protections2.c	\
-						prints.c
+						destroy_philos.c stop_conditions.c monitor.c	\
+						safe_variables.c safe_variables2.c prints.c		\
+						
 
-DIRS				=	. philosophers
+DIRS				=	. sources
 IFLAGS				=	-I $(HEADER_PATH)
 CFLAGS				=	-Wall -Wextra -Werror -pthread
 
-VPATH				=	$(addprefix ./philosophers/, $(DIRS))
+VPATH				=	$(addprefix ./sources/, $(DIRS))
 VPATH				+=	$(HEADER_PATH)
 
 WHITE				=	\e[00m

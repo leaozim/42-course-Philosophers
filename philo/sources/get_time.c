@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variable_protections2.c                            :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 10:21:10 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:24:04 by lade-lim         ###   ########.fr       */
+/*   Created: 2023/01/31 09:38:07 by lade-lim          #+#    #+#             */
+/*   Updated: 2023/02/07 18:51:12 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	lock_start(t_philo	*philo)
+size_t	get_time(void)
 {
-	int	start;
+	struct timeval	time;
 
-	pthread_mutex_lock(philo->look_start);
-	start = philo->time_start;
-	pthread_mutex_unlock(philo->look_start);
-	return (start);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	lock_stop(t_philo	*philo)
+size_t	get_timestamp(size_t start)
 {
-	int	stop;
+	return (get_time() - start);
+}
 
-	pthread_mutex_lock(philo->look_stop);
-	stop = philo->stop;
-	pthread_mutex_unlock(philo->look_stop);
-	return (stop);
+void	ft_usleep(int ms)
+{
+	size_t	time;
+
+	time = get_time();
+	while (get_time() - time < (size_t)ms)
+		usleep(10);
 }

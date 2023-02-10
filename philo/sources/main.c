@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:14 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:44:41 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:48:05 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ int	main(int argc, char *argv[])
 
 	fork = NULL;
 	if (check_input(argc, argv))
-		return (1);
+		return (EXIT_FAILURE);
 	philos = create_philos(ft_atoi(argv[1]), argv, &common, &fork);
 	if (!philos)
-		return (1);
+		return (EXIT_FAILURE);
 	dinner = malloc(sizeof(pthread_t) * common.n_philos);
 	if (!dinner)
-		return (1);
-	run_threads(dinner, &death, philos, common.n_philos);
+		return (EXIT_FAILURE);
+	if (!run_threads(dinner, &death, philos, common.n_philos))
+		return (EXIT_FAILURE);
 	destroy_philosophers(philos, dinner, &fork);
-	return (0);
+	return (EXIT_SUCCESS);
 }

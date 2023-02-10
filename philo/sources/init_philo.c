@@ -6,11 +6,9 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:33:06 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:45:00 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:01:10 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../includes/philosophers.h"
 
 #include "../includes/philosophers.h"
 
@@ -22,16 +20,11 @@ static void	init_date(t_philo *data, t_common *common, int i)
 	data->time_last_meal = 0;
 	data->meals_eaten = 0;
 	data->common = common;
-	data->look_current_time = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->look_current_time, NULL);
-	data->lock_meals = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->lock_meals, NULL);
-	data->look_meals_eaten = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->look_meals_eaten, NULL);
-	data->look_stop = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->look_stop, NULL);
-	data->look_start = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(data->look_start, NULL);
+	pthread_mutex_init(&data->look_current_time, NULL);
+	pthread_mutex_init(&data->lock_meals, NULL);
+	pthread_mutex_init(&data->look_meals_eaten, NULL);
+	pthread_mutex_init(&data->look_stop, NULL);
+	pthread_mutex_init(&data->look_start, NULL);
 }
 
 static void	shared_data( t_common *common, char **arguments)
@@ -47,14 +40,10 @@ static void	shared_data( t_common *common, char **arguments)
 		common->must_eat = ft_atoi(arguments[5]);
 	else
 		common->must_eat = -1;
-	common->print = (t_mutex *)malloc(sizeof(t_mutex));
-	common->death = (t_mutex *)malloc(sizeof(t_mutex));
-	common->look_is_dead = (t_mutex *)malloc(sizeof(t_mutex));
-	common->look_everyone_ate = (t_mutex *)malloc(sizeof(t_mutex));
-	pthread_mutex_init(common->print, NULL);
-	pthread_mutex_init(common->death, NULL);
-	pthread_mutex_init(common->look_is_dead, NULL);
-	pthread_mutex_init(common->look_everyone_ate, NULL);
+	pthread_mutex_init(&common->print, NULL);
+	pthread_mutex_init(&common->death, NULL);
+	pthread_mutex_init(&common->look_is_dead, NULL);
+	pthread_mutex_init(&common->look_everyone_ate, NULL);
 }
 
 static void	assign_fork(t_philo *philos, t_mutex **fork, int n_philos, int i)

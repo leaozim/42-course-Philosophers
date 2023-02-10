@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:02 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 11:24:24 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:23:00 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	int	is_valid_number(char *nbr[])
 			return (1);
 		while (nbr[i][j])
 		{
-			if (nbr[i][j] == '+' && j == 0)
+			if (nbr[i][j] == PLUS && j == 0)
 				j++;
 			if (!ft_isdigit(nbr[i][j]))
 				return (1);

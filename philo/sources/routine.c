@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:38:19 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 14:53:37 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:55:24 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	more_than_one_philo(t_philo *philo)
 
 	if (philo->id % 2)
 		ft_usleep(5);
-	is_dead = lock_is_dead(philo);
+	is_dead = get_is_dead(philo);
 	while (!is_dead)
 	{
-		stop = lock_stop(philo);
+		stop = get_stop(philo);
 		if (is_dead || stop || is_satiated(philo))
 			return (EXIT_FAILURE);
 		eating(philo);

@@ -6,7 +6,7 @@
 /*   By: lade-lim <lade-lim@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:57:32 by lade-lim          #+#    #+#             */
-/*   Updated: 2023/02/07 10:44:34 by lade-lim         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:51:12 by lade-lim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@
 # define INT_MAX 2147483647
 # define INT_MIN_NO_SING 2147483648
 # define INT_MIN -2147483648 
-# define LESS '-'
 # define PLUS '+'
+
+# define THREAD_ERROR "Error creating routine threads"
+# define JOIN_ERROR	"Error joining routine threads"
+
+# define THREAD_ERROR2 "Error creating monitor thread"
+# define JOIN_ERROR2	"Error joining monitor thread"
 
 # define TAKE_FORK	"has taken a fork\n"
 # define EATING		"is eating\n"
@@ -52,10 +57,10 @@ typedef struct s_common
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	t_mutex			*print;
-	t_mutex			*death;
-	t_mutex			*look_is_dead;
-	t_mutex			*look_everyone_ate;
+	t_mutex			print;
+	t_mutex			death;
+	t_mutex			look_is_dead;
+	t_mutex			look_everyone_ate;
 }	t_common;
 
 typedef struct s_philo
@@ -68,11 +73,11 @@ typedef struct s_philo
 	size_t			time_last_meal;
 	size_t			time_of_death;
 	size_t			time_start;
-	t_mutex			*look_current_time;
-	t_mutex			*look_start;
-	t_mutex			*look_stop;
-	t_mutex			*lock_meals;
-	t_mutex			*look_meals_eaten;
+	t_mutex			look_current_time;
+	t_mutex			look_start;
+	t_mutex			look_stop;
+	t_mutex			lock_meals;
+	t_mutex			look_meals_eaten;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
 	t_common		*common;
