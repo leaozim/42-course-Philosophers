@@ -30,12 +30,9 @@ Git clone the project:
 ```sh
 git https://github.com/leaozim/42-course-Philosophers.git
 ```
-```sh
-cd philo
-```
 To compile, use make
 ```sh
-make
+cd 42-course-Philosophers/philo && make
 ```
 Run the program with the following arguments:
 ```sh
